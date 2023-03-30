@@ -24,7 +24,7 @@ Whole walkthrough with screenshots is coming soon!
 - create your A record on the CF Webinterface (doesn't matter where it points to)
 - (Optional) create Telegram Bot; contact [Botfather](https://t.me/botfather) with /newbot and follow the instructions
 - (Optional) send a message to [@userinfobot](https://t.me/userinfobot) to get your chat ID
-- copy the script and edit the variables 
+- copy the dyndns.sh script and edit the variables 
 - make it executable with ```chmod +x dyndns.sh```
 - add a cronjob with ```crontab -e``` 
   ```
