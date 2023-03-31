@@ -45,7 +45,7 @@ timestamp() {
 OLD_IP=$(cat $IP_FILE)
 
 # get the current IP
-PUBLIC_IP=$(curl -s -4 icanhazip.com) || exit 1
+PUBLIC_IP=$(curl -m 20 -s -4 icanhazip.com) || exit 1
 
 # check if the IP changed
 if [ "$PUBLIC_IP" = "$OLD_IP" ]; then
@@ -57,7 +57,7 @@ fi
 echo $PUBLIC_IP > $IP_FILE
 
 # get the record ID
-RECORD_ID_FULL=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?type=A&name=$A_RECORD" \
+RECORD_ID_FULL=$(curl -m 20 -s -X GET "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?type=A&name=$A_RECORD" \
     -H "Authorization: Bearer $API_TOKEN" \
     -H "Content-Type: application/json")
 
@@ -74,7 +74,7 @@ EOF
 )
 
 # change the IP Address on Cloudflare using API v4
-UPDATE_RECORD=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$RECORD_ID" \
+UPDATE_RECORD=$(curl -m 20 -s -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$RECORD_ID" \
                      -H "Authorization: Bearer $API_TOKEN" \
                      -H "Content-Type: application/json" \
                      --data "$NEW_RECORD")
